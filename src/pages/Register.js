@@ -38,20 +38,16 @@ export default function Register() {
 
   return (
     <div>
-      <div>
-        <h1>This is the registration page</h1>
-      </div>
-
       <div className="form">
         {/* everything to do with the form is below */}
 
-        <div>
+        <div className="login-form">
           <form onSubmit={handleSubmit}>
-            <div>
+            <div className="form-input-material">
               <label>Username</label>
             </div>
 
-            <div>
+            <div className="form-input-material">
               <input
                 placeholder="Username"
                 name="username"
@@ -60,10 +56,10 @@ export default function Register() {
               />
             </div>
 
-            <div>
+            <div className="form-input-material">
               <label>Email</label>
             </div>
-            <div>
+            <div className="form-input-material">
               <input
                 placeholder="Email"
                 name="email"
@@ -72,10 +68,10 @@ export default function Register() {
               />
             </div>
 
-            <div>
+            <div className="form-input-material">
               <label>Password</label>
             </div>
-            <div>
+            <div className="form-input-material">
               <input
                 placeholder="Password"
                 name="password"
@@ -85,10 +81,10 @@ export default function Register() {
               />
             </div>
 
-            <div>
+            <div className="form-input-material">
               <label>Confirm Password</label>
             </div>
-            <div>
+            <div className="form-input-material">
               <input
                 placeholder="Confirm Password"
                 name="passwordConfirmation"
@@ -99,17 +95,15 @@ export default function Register() {
             </div>
 
             <div>
-              <input type="submit" value="Register" />
+              <input
+                className="btn2 btn-primary btn-ghost"
+                type="submit"
+                value="Register"
+              />
             </div>
           </form>
         </div>
         {/* everything to do with the form is above */}
-
-        {isRegistered ? (
-          <h3>Contratulations you're registered and can now login!</h3>
-        ) : (
-          <h3>To register fill out the form above</h3>
-        )}
       </div>
     </div>
   )

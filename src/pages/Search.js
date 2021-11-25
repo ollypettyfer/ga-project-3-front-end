@@ -16,7 +16,7 @@ export default function Search() {
         <div>
           <input
             type="text"
-            placeholder="search for something"
+            placeholder="search for country here"
             onChange={(event) => {
               setSearchTerm(event.target.value)
             }}

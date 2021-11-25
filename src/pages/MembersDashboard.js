@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import CreateCountryForm from '../components/CreateCountryForm'
-import VisistedPlaces from '../components/VisistedPlaces'
 import { getAllCountries, getUser } from '../lib/api'
 import Map from '../components/Map.js'
 
 import Geocode from 'react-geocode'
+import ProrgressBar from '../components/ProgressBar'
+import MembersCard from '../components/MembersCard'
 Geocode.setApiKey('AIzaSyBK6SzZbuxMjIHPxdoBk54ag5K23MLTss4')
 Geocode.setLanguage('en')
 Geocode.enableDebug()
@@ -13,12 +14,8 @@ export default function MembersHome() {
   const [userId, setUserId] = useState('')
   const [countries, setCountries] = useState([])
   const [userCountries, setUserCountries] = useState()
-  const [coordinates, setCoordinates] = useState([
-    {
-      lat: 51,
-      lng: 0,
-    },
-  ])
+  const [countryData, setCountryData] = useState()
+  const [coordinates, setCoordinates] = useState([])
   let geocodedCountries = []
 
   useEffect(() => {
@@ -29,13 +26,14 @@ export default function MembersHome() {
     for (let i = 0; i < array.length; i++) {
       getCoordinates(array[i].name)
     }
+    // console.log(`number of user countries are`, array.length)
   }, [userCountries])
 
   const getCoordinates = async (location) => {
     Geocode.fromAddress(location).then(
       (response) => {
         geocodedCountries.push(response.results[0].geometry.location)
-        console.log(`Data from function`, geocodedCountries)
+        // console.log(`Data from function`, geocodedCountries)
         setCoordinates(geocodedCountries)
       },
       (error) => {
@@ -70,11 +68,27 @@ export default function MembersHome() {
         (country) => country.createdBy == username
       )
       setUserCountries(finalCountries)
+
+      let countryDataParsed = countryKey
+        .map((item) => ({
+          name: item.name,
+          city: item.city,
+          yearVisited: item.yearVisited,
+          comments: item.comments,
+          rating: item.rating,
+          createdBy: item.createdBy.username,
+        }))
+        .filter((country) => country.createdBy == username)
+      setCountryData(countryDataParsed)
+      console.log(`COUNTRYDATAAA >>>> `, countryDataParsed)
     }
   }, [userId, countries])
 
   return (
     <div className="members-home">
+      <div className="progress-bar">
+        <ProrgressBar number={userCountries?.length} />
+      </div>
       <div className="main-members-container">
         {/* LEFT SIDE OF PAGE */}
         <div className="left-side">
@@ -85,19 +99,30 @@ export default function MembersHome() {
         {/* RIGHT SIDE OF PAGE */}
 
         <div className="right-side">
-          <h1>Create New Trip</h1>
+          <h3>Create New Trip</h3>
           <CreateCountryForm />
         </div>
       </div>
-      <div className="visted-bar">
+
+      <div className="bottom-section">
+        <h2 className="header">Trip History</h2>
         <div className="visited-countries">
-          {userCountries?.map(({ name }) => (
-            <VisistedPlaces key={name} name={name} />
-          ))}
+          {countryData?.map(({ name, city, yearVisited, comments, rating }) => {
+            return (
+              <div className="card">
+                <MembersCard
+                  className="card"
+                  name={name}
+                  city={city}
+                  yearVisited={yearVisited}
+                  imageUrl="https://whynotcuba.com/wp-content/uploads/2019/01/Havana.jpg"
+                  comments={comments}
+                  rating={rating}
+                />
+              </div>
+            )
+          })}
         </div>
-      </div>
-      <div className="progress-bar">
-        <h1>THIS IS WHERE THE TOTAL COUNTRIES VISITED BAR GOES</h1>
       </div>
     </div>
   )

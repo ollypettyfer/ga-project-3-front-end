@@ -38,41 +38,43 @@ export default function Login({ callback }) {
 
   return (
     <div>
-      <div>
-        <h1>This is the login page</h1>
-      </div>
+      <div className="form">
+        <div className="login-form">
+          <form onSubmit={handleSubmit}>
+            <div className="form-input-material">
+              <label>Email</label>
+            </div>
+            <div className="form-input-material">
+              <input
+                placeholder="Email"
+                name="email"
+                value={data.formData.email}
+                onChange={handleInput}
+              />
+            </div>
 
-      <div>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Email</label>
-          </div>
-          <div>
-            <input
-              placeholder="Email"
-              name="email"
-              value={data.formData.email}
-              onChange={handleInput}
-            />
-          </div>
+            <div>
+              <label for="password">Password</label>
+            </div>
+            <div className="form-input-material">
+              <input
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={data.formData.password}
+                onChange={handleInput}
+              />
+            </div>
 
-          <div>
-            <label>Password</label>
-          </div>
-          <div>
-            <input
-              placeholder="Password"
-              name="password"
-              type="password"
-              value={data.formData.password}
-              onChange={handleInput}
-            />
-          </div>
-
-          <div>
-            <input type="submit" value="Login" />
-          </div>
-        </form>
+            <div>
+              <input
+                className="btn2 btn-primary btn-ghost"
+                type="submit"
+                value="Login"
+              />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )

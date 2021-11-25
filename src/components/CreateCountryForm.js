@@ -1,54 +1,70 @@
 import React, { useState } from 'react'
+import CountryNameField from './fields/CountryNameField'
+import YearVistiedField from './fields/YearVistiedField'
+import CommentsField from './fields/CommentsField'
+import RatingFields from './fields/RatingFields'
+import { createCountry } from '../lib/api'
+import City from './fields/City'
 
 export default function CreateCountryForm() {
   const [state, setState] = useState({
-    data: {
+    formData: {
       name: '',
       city: '',
       yearVisited: '',
-      comments: {
-        text: '',
-        rating: '',
-      },
+      comments: '',
+      rating: '',
     },
   })
 
+  const refreshPage = () => {
+    window.location.reload(false)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const result = await createCountry(state.formData)
+      refreshPage()
+    } catch (err) {
+      console.log('error pushing country', err)
+    }
+  }
   const handleChange = (e) => {
     const formData = {
-      ...state.data,
-      [e.taget.name]: e.target.value,
+      ...state.formData,
+      [e.target.name]: e.target.value,
     }
     setState({ formData })
   }
-
   return (
     <div>
-      <form className="form">
+      <form onSubmit={handleSubmit} className="login-form">
         <label className="label">Country</label>
-        <input
-          className="input"
-          placeholder="Country"
-          name="Country"
-          value="Country"
+        <CountryNameField
           handleChange={handleChange}
+          name={state.formData.name}
         />
         <label className="label">City</label>
-        <input
-          className="input"
-          placeholder="City"
-          name="City"
-          value="City"
-          handleChange={handleChange}
-        />
+        <City handleChange={handleChange} name={state.formData.city} />
+
         <label className="label">Year Visited</label>
-        <input
-          className="input"
-          placeholder="Year Visited"
-          name="yearVisited"
-          value="Year Visited"
+        <YearVistiedField
           handleChange={handleChange}
+          name={state.formData.yearVisited}
         />
-        <input type="submit" />
+        <label className="label">Comments</label>
+        <CommentsField
+          handleChange={handleChange}
+          name={state.formData.comments}
+        />
+        <label className="label">Rating</label>
+        <RatingFields
+          handleChange={handleChange}
+          name={state.formData.comments.rating}
+        />
+        <br></br>
+        <input type="submit" value={`Add Your Trip`} />
       </form>
     </div>
   )

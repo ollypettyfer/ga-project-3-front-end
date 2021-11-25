@@ -11,6 +11,7 @@ import Login from './pages/Login.js'
 import Logout from './pages/Logout'
 import MembersDashboard from './pages/MembersDashboard.js'
 import SearchResults from './pages/SearchResults'
+import EditDelete from './pages/EditDelete'
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -43,6 +44,8 @@ const App = () => {
           )}
         />
         <Route exact path="/members" component={MembersDashboard} />
+        <Route exact path="/editdelete/:id" component={EditDelete} />
+        <Route exact path="/editdelete/" component={MembersDashboard} />
       </Switch>
     </BrowserRouter>
   )

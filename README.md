@@ -80,8 +80,9 @@ export default Country;
 
 
 We all had an equal share of this build, I completed the CRUD functionality on the back-end. 
-```javascript
+
 ### Create, Request, Update and Delete countries
+```javascript
 import Country from '../models/country.js'
 import User from '../models/user.js'
 async function getAllCountries(_req, res, next) {
@@ -255,8 +256,9 @@ export default { createComment, deleteComment, updateComment };
 ```
 
 On the front-end, I took control of the BrowserRouter, Home page and Navigation.
-```javascript 
+
 ### Browser-router
+```javascript 
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
  
@@ -313,8 +315,9 @@ const App = () => {
 export default App
  
 ```
-```javascript 
+
 ### Nav-bar
+```javascript 
 import React from 'react'
 import { Link } from 'react-router-dom'
  
@@ -361,8 +364,10 @@ export default Navbar
 ```
 
 I then built up the countries portfolio cards mapping over the data and linking them to images and users.
-```javascript 
+
 ### Countires Card
+```javascript 
+
 <div className="display-country-cards">
        {/* countries starts */}
  
@@ -379,8 +384,8 @@ I then built up the countries portfolio cards mapping over the data and linking 
        ))}
      </div>
 ```
-
-```javascript Linking images and users to the specific countries cards
+###  Linking images and users to the specific countries cards
+```javascript
 import React, { useState, useEffect } from 'react'
 import { getPhoto } from '../lib/api'
  
@@ -456,4 +461,5 @@ export default CountriesCard
 ## Key Learning
 
 Working in a larger group it is key that you regularly communicate throughout the project, especially one someone has completed a certain task. On a number of occasions when pushing to Git we had conflicts within the code. Some of these could have been stopped by talking before pushing. However, sometimes this was harder when not working at the same times or days of the week.
+
 
